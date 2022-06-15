@@ -16,16 +16,20 @@
 #include "uiDraw.h"     // for RANDOM and DRAW*
 #include "ground.h"     // for GROUND
 #include "position.h"   // for POSITION
+#include "direction.h"
+#include "howitzer.h"
+#include "projectile.h"
+#include "velocity.h"
 using namespace std;
 
 /*************************************************************************
  * Demo
  * Test structure to capture the LM that will move around the screen
  *************************************************************************/
-class Demo
+class Simulation
 {
 public:
-   Demo(Position ptUpperRight) :
+   Simulation(Position ptUpperRight) :
       ptUpperRight(ptUpperRight),
       ground(ptUpperRight),
       time(0.0),
@@ -39,13 +43,31 @@ public:
          projectilePath[i].setPixelsY(ptUpperRight.getPixelsY() / 1.5);
       }
    }
+   
+   void reset() {}
+   void fire() {}
+   void display() {}
+   void advance() {}
+   void input(const Interface* pUI) {}
+   void setInterval(double interval) {}
+   void setMuzzleVelocity(Velocity vel) {}
+   void setDiameter(double diameter) {}
+   void hitTarget() {}
+   void getHeightMeters() {}
 
-   Ground ground;                 // the ground
+   
    Position  projectilePath[20];  // path of the projectile
    Position  ptHowitzer;          // location of the howitzer
    Position  ptUpperRight;        // size of the screen
    double angle;                  // angle of the howitzer 
    double time;                   // amount of time since the last firing
+   
+   Ground ground;                 // the ground
+   Howitzer howitzer;
+   Projectile projectile;
+   int status;
+   double simTime;
+   double interval;
 };
 
 /*************************************
@@ -57,9 +79,10 @@ public:
  **************************************/
 void callBack(const Interface* pUI, void* p)
 {
+   
    // the first step is to cast the void pointer into a game object. This
    // is the first step of every single callback function in OpenGL. 
-   Demo* pDemo = (Demo*)p;
+   Simulation* pDemo = (Simulation*)p;
 
    //
    // accept input
@@ -147,7 +170,7 @@ int main(int argc, char** argv)
       ptUpperRight);
 
    // Initialize the demo
-   Demo demo(ptUpperRight);
+   Simulation demo(ptUpperRight);
 
    // set everything into action
    ui.run(callBack, &demo);
