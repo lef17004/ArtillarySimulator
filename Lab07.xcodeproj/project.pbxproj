@@ -32,6 +32,8 @@
 /* Begin PBXFileReference section */
 		3310059E285A3FCF002879A1 /* direction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = direction.h; sourceTree = "<group>"; };
 		331005A0285A41E0002879A1 /* projectile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = projectile.h; sourceTree = "<group>"; };
+		331005A1285A44FB002879A1 /* howitzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = howitzer.h; sourceTree = "<group>"; };
+		331005A2285A44FB002879A1 /* velocity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = velocity.h; sourceTree = "<group>"; };
 		C18A023927330832004537C6 /* Lab07 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Lab07; sourceTree = BUILT_PRODUCTS_DIR; };
 		C18A024327330880004537C6 /* ground.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ground.cpp; sourceTree = "<group>"; };
 		C18A024427330880004537C6 /* position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = position.h; sourceTree = "<group>"; };
@@ -66,6 +68,8 @@
 		C18A023027330832004537C6 = {
 			isa = PBXGroup;
 			children = (
+				331005A1285A44FB002879A1 /* howitzer.h */,
+				331005A2285A44FB002879A1 /* velocity.h */,
 				331005A0285A41E0002879A1 /* projectile.h */,
 				3310059E285A3FCF002879A1 /* direction.h */,
 				C1B0EA5A27E22792004C9F71 /* testGround.h */,

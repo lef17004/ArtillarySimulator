@@ -10,12 +10,13 @@
 #include "position.h"
 #include "direction.h"
 #include "velocity.h"
+using namespace std;
 class Projectile
 {
 public:
    Projectile() {}
    void reset() {}
-   void fire(postion pos, double time, Direction angle, Velocity vel) {}
+   void fire(Position pos, double time, Direction angle, Velocity vel) {}
    void advance(double time) {}
    void draw() {}
    bool flying() {return false;}
@@ -31,5 +32,5 @@ public:
 private:
    double mass;
    double radius;
-   array<position, 20> flightPath;
+   array<Position, 20> flightPath;
 };
