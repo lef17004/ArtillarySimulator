@@ -20,6 +20,7 @@
 #include "howitzer.h"
 #include "projectile.h"
 #include "velocity.h"
+#include "testDirection.h"
 using namespace std;
 
 /*************************************************************************
@@ -79,10 +80,11 @@ public:
  **************************************/
 void callBack(const Interface* pUI, void* p)
 {
-   
+   TestDirection test;
+   test.run();
    // the first step is to cast the void pointer into a game object. This
    // is the first step of every single callback function in OpenGL. 
-   Simulation* pDemo = (Simulation*)p;
+   Simulation* pSimulation = (Simulation*)p;
 
    //
    // accept input
@@ -90,58 +92,58 @@ void callBack(const Interface* pUI, void* p)
 
    // move a large amount
    if (pUI->isRight())
-      pDemo->angle += 0.05;
+      pSimulation->angle += 0.05;
    if (pUI->isLeft())
-      pDemo->angle -= 0.05;
+      pSimulation->angle -= 0.05;
 
    // move by a little
    if (pUI->isUp())
-      pDemo->angle += (pDemo->angle >= 0 ? -0.003 : 0.003);
+      pSimulation->angle += (pSimulation->angle >= 0 ? -0.003 : 0.003);
    if (pUI->isDown())
-      pDemo->angle += (pDemo->angle >= 0 ? 0.003 : -0.003);
+      pSimulation->angle += (pSimulation->angle >= 0 ? 0.003 : -0.003);
 
    // fire that gun
    if (pUI->isSpace())
-      pDemo->time = 0.0;
+      pSimulation->time = 0.0;
 
    //
    // perform all the game logic
    //
 
    // advance time by half a second.
-   pDemo->time += 0.5;
+   pSimulation->time += 0.5;
 
    // move the projectile across the screen
    for (int i = 0; i < 20; i++)
    {
-      double x = pDemo->projectilePath[i].getPixelsX();
+      double x = pSimulation->projectilePath[i].getPixelsX();
       x -= 1.0;
       if (x < 0)
-         x = pDemo->ptUpperRight.getPixelsX();
-      pDemo->projectilePath[i].setPixelsX(x);
+         x = pSimulation->ptUpperRight.getPixelsX();
+      pSimulation->projectilePath[i].setPixelsX(x);
    }
 
    //
    // draw everything
    //
 
-   ogstream gout(Position(10.0, pDemo->ptUpperRight.getPixelsY() - 20.0));
+   ogstream gout(Position(10.0, pSimulation->ptUpperRight.getPixelsY() - 20.0));
 
    // draw the ground first
-   pDemo->ground.draw(gout);
+   pSimulation->ground.draw(gout);
 
    // draw the howitzer
-   gout.drawHowitzer(pDemo->ptHowitzer, pDemo->angle, pDemo->time);
+   gout.drawHowitzer(pSimulation->ptHowitzer, pSimulation->angle, pSimulation->time);
 
    // draw the projectile
    for (int i = 0; i < 20; i++)
-      gout.drawProjectile(pDemo->projectilePath[i], 0.5 * (double)i);
+      gout.drawProjectile(pSimulation->projectilePath[i], 0.5 * (double)i);
 
    // draw some text on the screen
    gout.setf(ios::fixed | ios::showpoint);
    gout.precision(1);
    gout << "Time since the bullet was fired: "
-      << pDemo->time << "s\n";
+      << pSimulation->time << "s\n";
 }
 
 double Position::metersFromPixels = 40.0;

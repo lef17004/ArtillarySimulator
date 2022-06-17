@@ -6,6 +6,8 @@
 //
 
 #pragma once
+class TestDirection;
+
 class Direction
 {
 public:
@@ -24,6 +26,7 @@ public:
    double getDx() {return 0;}
    double getDy() {return 0;}
    
+   friend class TestDirection;
 private:
    double radians;
 };
