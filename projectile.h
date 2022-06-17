@@ -11,12 +11,23 @@
 #include "direction.h"
 #include "velocity.h"
 using namespace std;
+
+struct PVT
+{
+   Position pos;
+   Velocity vol;
+   double time;
+};
+
 class Projectile
 {
 public:
    Projectile() {}
    void reset() {}
-   void fire(Position pos, double time, Direction angle, Velocity vel) {}
+   void fire(Position pos, double time, Direction angle, Velocity vel)
+   {
+      PVT pvt;
+   }
    void advance(double time) {}
    void draw() {}
    bool flying() {return false;}

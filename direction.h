@@ -23,8 +23,6 @@ public:
    void reverse() {}
    double getRadians() {return 0;}
    double getDegrees() {return 0;}
-   double getDx() {return 0;}
-   double getDy() {return 0;}
    
    friend class TestDirection;
 private:

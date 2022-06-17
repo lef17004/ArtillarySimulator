@@ -6,6 +6,7 @@
 //
 #include "direction.h"
 #include <math.h>
+#include <cassert>
 #pragma once
 
 /*
@@ -21,8 +22,6 @@
  reverse
  getRadians
  getDegrees
- getDx
- getDy
  */
 
 
@@ -34,6 +33,16 @@ public:
       defaultConstructor();
       assignmentOperator();
       setDegrees();
+      setRadians();
+      setDxDy();
+      setDown();
+      setUp();
+      setLeft();
+      setRight();
+      reverse();
+      getRadians();
+      getDegrees();
+      
    }
    
 private:
@@ -164,26 +173,41 @@ private:
    
    void reverse()
    {
+      // Setup
+      Direction direction;
+      direction.radians = M_PI;
       
+      // Exercise
+      direction.reverse();
+      
+      // Verify
+      closeEnough(direction.radians, 0, 0.001);
+      assert(direction.radians == 0);
    }
    
    void getRadians()
    {
+      // Setup
+      Direction direction;
+      direction.radians = M_PI;
       
+      // Exercise
+      double radians = direction.getRadians();
+      
+      // Verify
+      assert(radians == M_PI);
    }
    
    void getDegrees()
    {
+      // Setup
+      Direction direction;
+      direction.radians = M_PI;
       
-   }
-   
-   void getDx()
-   {
+      // Exercise
+      double degrees = direction.getDegrees();
       
-   }
-   
-   void getDy()
-   {
-      
+      // Verify
+      assert(closeEnough(degrees, 180.0, 0.001));
    }
 };
