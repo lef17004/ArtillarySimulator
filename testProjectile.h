@@ -126,6 +126,41 @@ private:
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
 
    }
+   
+   // Advance When Deque has 10 items on it. When looking at the demo, only 10 colored in pixels can be seen despite the array
+   // holding 20. When Deque gets bigger than 10, pop of the front.
+   void advance2()
+   {
+      // set up
+      Projectile projectile;
+      double time = 0;
+      Position position(0, 0);
+      Velocity velocity;
+      velocity.setSpeed(827.0);
+      PVT firstProjectile;
+      firstProjectile.position = position;
+      firstProjectile.velocity = velocity;
+      firstProjectile.time = time;
+      projectile.flightPath.push_back(firstProjectile);
+      // exersice
+      projectile.advance(time);
+      // verify
+      assert(projectile.flightPath[0].position.getMetersX() == 0);
+      assert(projectile.flightPath[0].position.getMetersY() == 0);
+      assert(closeEnough(projectile.flightPath[0].velocity.getSpeed(), 827, 0.001));
+      assert(closeEnough(projectile.flightPath[0].time, 0, 0.001));
+      
+      assert(closeEnough(projectile.flightPath[1].position.getMetersX(), 4.1339, 0.001));
+      assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15964, 0.001));
+      assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
+      assert(closeEnough(projectile.flightPath[1].time, 0.01, 0.001));
+      
+      assert(projectile.flightPath.size() == 2);
+      
+      assert(closeEnough(projectile.mass, 46.7, 0.001));
+      assert(closeEnough(projectile.radius, 0.077445, 0.001));
+      
+   }
 
    void flying_false()
    {
@@ -312,7 +347,10 @@ private:
 
 
 
-
+   PVT makePVT(double x, double y, double dx, double dy, double time)
+   {
+      
+   }
 
 
 };

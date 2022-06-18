@@ -9,40 +9,31 @@
 #include <cassert>
 #pragma once
 
-/*
- Direction
- assign
- setRadians
- setDegrees
- SetDxDy
- SetDown
- setUp
- setRight
- setLeft
- reverse
- getRadians
- getDegrees
- */
-
-
 class TestDirection
 {
 public:
    void run()
    {
+      
+      
+      
       defaultConstructor();
       assignmentOperator();
-      setDegrees();
+      SetDegreesNormal();
+      SetDegreesHigh();
+      SetDegreesLow();
       setRadians();
+      setRadiansHigh();
+      setRadiansLow();
       setDxDy();
       setDown();
       setUp();
       setLeft();
       setRight();
       reverse();
+      reverseWhenZero();
       getRadians();
       getDegrees();
-      
    }
    
 private:
@@ -53,16 +44,18 @@ private:
       return (difference >= -tolerence) && (difference <= tolerence);
    }
    
+   // Tests default contructor
    void defaultConstructor()
    {
       // Setup and Exercise
       Direction direction;
       
       // Verify
-      assert(direction.radians == M_PI / 2);
+      assert(direction.radians == 0);
       // Teardown
    }
    
+   // Test assignment operator makes copy
    void assignmentOperator()
    {
       // Setup
@@ -78,7 +71,8 @@ private:
       assert(direction1.radians == M_PI);
    }
    
-   void setDegrees()
+   // Tests setting degrees to 90
+   void SetDegreesNormal()
    {
       // Setup
       Direction direction;
@@ -88,9 +82,38 @@ private:
       direction.setDegrees(90);
       
       // Verify
+      assert(direction.radians == M_PI / 2);
+   }
+   
+   // Tests setting degrees to a number greater than 360
+   void SetDegreesHigh()
+   {
+      // Setup
+      Direction direction;
+      direction.radians = 0;
+      
+      // Exercise
+      direction.setDegrees(540.0);
+      
+      // Verify
       assert(direction.radians == M_PI);
    }
    
+   // Tests setting degrees to a number below 0
+   void SetDegreesLow()
+   {
+      // Setup
+      Direction direction;
+      direction.radians = 0;
+      
+      // Exercise
+      direction.setDegrees(-180.0);
+      
+      // Verify
+      assert(direction.radians == M_PI);
+   }
+   
+   // Tests setting radians to pi
    void setRadians()
    {
       // Setup
@@ -104,6 +127,35 @@ private:
       assert(direction.radians = M_PI);
    }
    
+   // Tests setting radians to a value greater than 2pi.
+   void setRadiansHigh()
+   {
+      // Setup
+      Direction direction;
+      direction.radians = 0;
+      
+      // Exercise
+      direction.setRadians(3 * M_PI);
+      
+      // Verify
+      assert(direction.radians = M_PI);
+   }
+   
+   // Tests setting radians to a value lower than 0.
+   void setRadiansLow()
+   {
+      // Setup
+      Direction direction;
+      direction.radians = 0;
+      
+      // Exercise
+      direction.setRadians(-M_PI);
+      
+      // Verify
+      assert(direction.radians = M_PI);
+   }
+   
+   // Tests setting angle with dx and dy
    void setDxDy()
    {
       // Setup
@@ -119,6 +171,7 @@ private:
       assert(closeEnough(direction.radians, 0.6435, 0.001));
    }
    
+   // Test setting angle down
    void setDown()
    {
       // Setup
@@ -129,9 +182,10 @@ private:
       direction.setDown();
       
       // Verify
-      assert(direction.radians == 3 * M_PI / 2);
+      assert(direction.radians == M_PI);
    }
    
+   // Tests setting angle up
    void setUp()
    {
       // Setup
@@ -142,9 +196,10 @@ private:
       direction.setDown();
       
       // Verify
-      assert(direction.radians == M_PI / 2);
+      assert(direction.radians == 0);
    }
    
+   // Tests setting angle to the left
    void setLeft()
    {
       // Setup
@@ -155,9 +210,10 @@ private:
       direction.setLeft();
       
       // Verify
-      assert(direction.radians == M_PI);
+      assert(direction.radians == M_PI / 2);
    }
    
+   // Tests setting angle to the right
    void setRight()
    {
       // Setup
@@ -168,9 +224,10 @@ private:
       direction.setRight();
       
       // Verify
-      assert(direction.radians == 0);
+      assert(direction.radians == 3 * M_PI / 2);
    }
    
+   // Tests reversing the direction of the angle
    void reverse()
    {
       // Setup
@@ -185,6 +242,22 @@ private:
       assert(direction.radians == 0);
    }
    
+   // Makes sure angle reverses corectly when 0.
+   void reverseWhenZero()
+   {
+      // Setup
+      Direction direction;
+      direction.radians = 0;
+      
+      // Exercise
+      direction.reverse();
+      
+      // Verify
+      closeEnough(direction.radians, M_PI, 0.001);
+      assert(direction.radians == 0);
+   }
+   
+   // Tests getting radians
    void getRadians()
    {
       // Setup
@@ -198,6 +271,7 @@ private:
       assert(radians == M_PI);
    }
    
+   // Tests getting degrees
    void getDegrees()
    {
       // Setup

@@ -10,14 +10,17 @@
 #include "position.h"
 #include "direction.h"
 #include "velocity.h"
+#include <deque>
 using namespace std;
 
 struct PVT
 {
-   Position pos;
-   Velocity vol;
+   Position position;
+   Velocity velocity;
    double time;
 };
+
+class TestProjectile;
 
 class Projectile
 {
@@ -32,16 +35,16 @@ public:
    void draw() {}
    bool flying() {return false;}
    double getAltitude() {return 0;}
-   Position getPosition() {return flightPath[0];}
+   Position getPosition() {return flightPath[0].position;}
    double getFlightTime() {return 0;}
    double getFlightDistance() {return 0;}
    double getSpeed() {return 0;}
    double getCurrentTime() {return 0;}
    void setMass(double mass) {}
    void setRadius(double radius) {}
-   
+   friend class TestProjectile;
 private:
    double mass;
    double radius;
-   array<Position, 20> flightPath;
+   deque<PVT> flightPath;
 };
