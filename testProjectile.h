@@ -18,6 +18,7 @@ public:
       reset();
       fire();
       advance();
+      advanceWhen10ItemsInDeque();
       flying_false();
       flying_true();
       getAltitude();
@@ -127,36 +128,54 @@ private:
 
    }
    
-   // Advance When Deque has 10 items on it. When looking at the demo, only 10 colored in pixels can be seen despite the array
-   // holding 20. When Deque gets bigger than 10, pop of the front.
-   void advance2()
+   // Advance when Deque has 10 items on it. When looking at the demo, only 10 colored in pixels can be seen despite the array
+   // holding 20. When Deque gets bigger than 10, pop off the front.
+   void advanceWhen10ItemsInDeque()
    {
       // set up
       Projectile projectile;
-      double time = 0;
-      Position position(0, 0);
-      Velocity velocity;
-      velocity.setSpeed(827.0);
-      PVT firstProjectile;
-      firstProjectile.position = position;
-      firstProjectile.velocity = velocity;
-      firstProjectile.time = time;
-      projectile.flightPath.push_back(firstProjectile);
+      PVT pvtZero = makePVT(0, 0, 827.0, 0.0);
+      PVT pvtOne  = makePVT(4.1339, 7.15964, 826.476, 0.01);
+      PVT pvtTwo = makePVT(8.26561, 14.3145, 825.953, 0.02);
+      PVT pvtThree = makePVT(12.3951, 21.4646, 825.431, 0.03);
+      PVT pvtFour = makePVT(16.5225, 28.6099, 824.91, 0.04);
+      PVT pvtFive = makePVT(20.6476, 35.7505, 824.389, 0.05);
+      PVT pvtSix = makePVT(24.7706, 42.8863, 823.869, 0.06);
+      PVT pvtSeven = makePVT(28.8914, 50.0174, 823.349, 0.07);
+      PVT pvtEight = makePVT(33.01, 57.1437, 822.831, 0.08);
+      PVT pvtNine = makePVT(37.1265, 64.2653, 822.313, 0.09);
+      PVT pvtTen = makePVT(41.2408, 71.3822, 821.795, 0.1);
+      
+      projectile.flightPath.push_back(pvtZero);
+      projectile.flightPath.push_back(pvtOne);
+      projectile.flightPath.push_back(pvtTwo);
+      projectile.flightPath.push_back(pvtThree);
+      projectile.flightPath.push_back(pvtFour);
+      projectile.flightPath.push_back(pvtFive);
+      projectile.flightPath.push_back(pvtSix);
+      projectile.flightPath.push_back(pvtSeven);
+      projectile.flightPath.push_back(pvtEight);
+      projectile.flightPath.push_back(pvtNine);
+      projectile.flightPath.push_back(pvtTen);
+      
       // exersice
-      projectile.advance(time);
+      projectile.advance(0.01);
       // verify
-      assert(projectile.flightPath[0].position.getMetersX() == 0);
-      assert(projectile.flightPath[0].position.getMetersY() == 0);
-      assert(closeEnough(projectile.flightPath[0].velocity.getSpeed(), 827, 0.001));
-      assert(closeEnough(projectile.flightPath[0].time, 0, 0.001));
       
-      assert(closeEnough(projectile.flightPath[1].position.getMetersX(), 4.1339, 0.001));
-      assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15964, 0.001));
-      assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
-      assert(closeEnough(projectile.flightPath[1].time, 0.01, 0.001));
+      //Make sure new PVT was added to end of flight path
+      assert(closeEnough(projectile.flightPath[9].position.getMetersX(), 45.3529, 0.001));
+      assert(closeEnough(projectile.flightPath[9].position.getMetersY(), 78.4944, 0.001));
+      assert(closeEnough(projectile.flightPath[9].velocity.getSpeed(), 821.795, 0.001));
+      assert(projectile.flightPath[9].time == 0.11);
       
-      assert(projectile.flightPath.size() == 2);
       
+      // Make sure the correct PVT is at the front
+      assert(closeEnough(projectile.flightPath[0].position.getMetersX(), 4.1339, 0.001));
+      assert(closeEnough(projectile.flightPath[9].position.getMetersY(), 7.15956, 0.001));
+      assert(closeEnough(projectile.flightPath[9].velocity.getSpeed(), 826.476, 0.001));
+      assert(projectile.flightPath[9].time == 0.01);
+      
+      assert(projectile.flightPath.size() == 10);
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
       
@@ -243,9 +262,9 @@ private:
       firstProjectile.time = time;
       projectile.flightPath.push_back(firstProjectile);
       // exercise
-      Position position = projectile.getPosition();
-      double dx = position.getMetersX();
-      double dy = position.getMetersY();
+      Position testPosition = projectile.getPosition();
+      double dx = testPosition.getMetersX();
+      double dy = testPosition.getMetersY();
       // verify
       assert(dx == 2);
       assert(dy == 9);
@@ -268,9 +287,9 @@ private:
       firstProjectile.time = time;
       projectile.flightPath.push_back(firstProjectile);
       // excercise
-      double time = projectile.getFlightTime();
+      double testTime = projectile.getFlightTime();
       // verify
-      assert(time == 0);
+      assert(testTime == 0);
 
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
@@ -347,9 +366,13 @@ private:
 
 
 
-   PVT makePVT(double x, double y, double dx, double dy, double time)
+   PVT makePVT(double x, double y, double totalVelocity, double time)
    {
-      
+      PVT newPVT;
+      newPVT.position = Position(x, y);
+      newPVT.velocity = Velocity(totalVelocity);
+      newPVT.time = time;
+      return newPVT;
    }
 
 

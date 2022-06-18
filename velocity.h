@@ -8,6 +8,12 @@ private:
    double dy;
 
 public:
+   Velocity(): dx(0), dy(0) {}
+   Velocity(double dx, double dy): dx(dx), dy(dy) {}
+   Velocity(double totalVelocity)
+   {
+      
+   }
    double getDx();
    double getDy();
    double getSpeed();
