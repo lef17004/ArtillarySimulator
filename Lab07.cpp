@@ -21,6 +21,8 @@
 #include "projectile.h"
 #include "velocity.h"
 #include "testDirection.h"
+#include "testPosition.h"
+#include "testProjectile.h"
 using namespace std;
 
 /*************************************************************************
@@ -81,7 +83,8 @@ public:
 void callBack(const Interface* pUI, void* p)
 {
    TestDirection test;
-   test.run();
+   TestProjectile test2;
+   //test.run();
    // the first step is to cast the void pointer into a game object. This
    // is the first step of every single callback function in OpenGL. 
    Simulation* pSimulation = (Simulation*)p;
@@ -136,7 +139,7 @@ void callBack(const Interface* pUI, void* p)
    gout.drawHowitzer(pSimulation->ptHowitzer, pSimulation->angle, pSimulation->time);
 
    // draw the projectile
-   for (int i = 0; i < 20; i++)
+   for (int i = 0; i < 10; i++)
       gout.drawProjectile(pSimulation->projectilePath[i], 0.5 * (double)i);
 
    // draw some text on the screen

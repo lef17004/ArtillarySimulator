@@ -13,21 +13,24 @@
 #include <deque>
 using namespace std;
 
-class TestProjectile;
-
 struct PVT
 {
    Position position;
    Velocity velocity;
-   double time; 
+   double time;
 };
+
+class TestProjectile;
 
 class Projectile
 {
 public:
    Projectile() {}
    void reset() {}
-   void fire(Position pos, double time, Direction angle, Velocity vel) {}
+   void fire(Position pos, double time, Direction angle, Velocity vel)
+   {
+      PVT pvt;
+   }
    void advance(double time) {}
    void draw() {}
    bool flying() {return false;}
@@ -39,8 +42,7 @@ public:
    double getCurrentTime() {return 0;}
    void setMass(double mass) {}
    void setRadius(double radius) {}
-   friend TestProjectile;
-   
+   friend class TestProjectile;
 private:
    double mass;
    double radius;
