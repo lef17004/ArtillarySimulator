@@ -5,16 +5,12 @@
 #include "direction.h"
 #include "velocity.h"
 
-
-
-
-
 class TestProjectile
 {
 public:
    void run()
    {
-      defaultConstrucotr();
+      defaultConstructor();
       reset();
       fire();
       advance();
@@ -22,12 +18,19 @@ public:
       flying_false();
       flying_true();
       getAltitude();
+      getAltitudeWhenMultipleThingsInFlightPath();
       getPosition();
+      getPositionWhenMultipleThingsInFlightPath();
       getFlightTime();
+      getFlightTimeWhenMultipleThingsInFlightPath();
       getFlightDistnace();
+      getFlightDistanceWhenMultipleThingsInFlightPath();
       getSpeed();
+      getSpeedWhenMultipleThingsInFlightPath();
       setMass();
       setRadius();
+      setMassBelowZero();
+      setRadiusBelowZero();
    }
 
 private:
@@ -38,7 +41,8 @@ private:
       return (difference >= -tolerence) && (difference <= tolerence);
    }
 
-   void defaultConstrucotr()
+   // Test Default Constructor
+   void defaultConstructor()
    {
       // set up and exersice
       Projectile projectile;
@@ -53,6 +57,7 @@ private:
 
    }
 
+   // Make sure values reset to default values
    void reset()
    {
       // set up and exersice
@@ -69,6 +74,7 @@ private:
 
    }
 
+   // Projectile is set to correct values when fire is called
    void fire()
    {
       // set up
@@ -95,6 +101,7 @@ private:
 
    }
 
+   // Projectile is advanced by one frame
    void advance()
    {
       // set up 
@@ -171,9 +178,9 @@ private:
       
       // Make sure the correct PVT is at the front
       assert(closeEnough(projectile.flightPath[0].position.getMetersX(), 4.1339, 0.001));
-      assert(closeEnough(projectile.flightPath[9].position.getMetersY(), 7.15956, 0.001));
-      assert(closeEnough(projectile.flightPath[9].velocity.getSpeed(), 826.476, 0.001));
-      assert(projectile.flightPath[9].time == 0.01);
+      assert(closeEnough(projectile.flightPath[0].position.getMetersY(), 7.15956, 0.001));
+      assert(closeEnough(projectile.flightPath[0].velocity.getSpeed(), 826.476, 0.001));
+      assert(projectile.flightPath[0].time == 0.01);
       
       assert(projectile.flightPath.size() == 10);
       assert(closeEnough(projectile.mass, 46.7, 0.001));
@@ -181,6 +188,7 @@ private:
       
    }
 
+   // Returns false when not flying.
    void flying_false()
    {
       //set up
@@ -199,6 +207,7 @@ private:
 
    }
 
+   // Return true when flying.
    void flying_true()
    {
       //set up 
@@ -225,6 +234,7 @@ private:
 
    }
 
+   // Gets correct altitude
    void getAltitude()
    {
       // set up 
@@ -247,7 +257,39 @@ private:
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
       assert(projectile.flightPath.size() == 1);
    }
+   
+   // Get alititude when multiple things in flight path
+   void getAltitudeWhenMultipleThingsInFlightPath()
+   {
+      // Setup
+      Projectile projectile;
+      PVT pvtOne = makePVT(0, 0, 827.0, 0.0);
+      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01);
+      projectile.flightPath.push_back(pvtOne);
+      projectile.flightPath.push_back(pvtTwo);
+      
+      // Exercise
+      double altitude = projectile.getAltitude();
+      
+      // Verify
+      assert(closeEnough(altitude, 7.15956, 0.001));
+      assert(projectile.flightPath.size() == 2);
+      assert(closeEnough(projectile.mass, 46.7, 0.001));
+      assert(closeEnough(projectile.radius, 0.077445, 0.001));
+      
+      
+      assert(closeEnough(projectile.flightPath[0].position.getMetersX(), 0, 0.001));
+      assert(closeEnough(projectile.flightPath[0].position.getMetersY(), 0, 0.001));
+      assert(closeEnough(projectile.flightPath[0].velocity.getSpeed(), 827.0, 0.001));
+      assert(projectile.flightPath[1].time == 0.01);
+      
+      assert(closeEnough(projectile.flightPath[1].position.getMetersX(), 4.1339, 0.001));
+      assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15956, 0.001));
+      assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
+      assert(projectile.flightPath[1].time == 0.01);
+   }
 
+   // Gets position of projectile
    void getPosition()
    {
       // set up 
@@ -272,7 +314,40 @@ private:
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
    }
+   
+   // Get position when multiple things in flight path
+   void getPositionWhenMultipleThingsInFlightPath()
+   {
+      // Setup
+      Projectile projectile;
+      PVT pvtOne = makePVT(0, 0, 827.0, 0.0);
+      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01);
+      projectile.flightPath.push_back(pvtOne);
+      projectile.flightPath.push_back(pvtTwo);
+      
+      // Exercise
+      Position position = projectile.getPosition();
+      
+      // Verify
+      assert(closeEnough(position.getMetersX(), 4.1339, 0.001));
+      assert(closeEnough(position.getMetersY(), 7.15964, 0.001));
+      assert(projectile.flightPath.size() == 2);
+      assert(closeEnough(projectile.mass, 46.7, 0.001));
+      assert(closeEnough(projectile.radius, 0.077445, 0.001));
+      
+      
+      assert(closeEnough(projectile.flightPath[0].position.getMetersX(), 0, 0.001));
+      assert(closeEnough(projectile.flightPath[0].position.getMetersY(), 0, 0.001));
+      assert(closeEnough(projectile.flightPath[0].velocity.getSpeed(), 827.0, 0.001));
+      assert(projectile.flightPath[1].time == 0.01);
+      
+      assert(closeEnough(projectile.flightPath[1].position.getMetersX(), 4.1339, 0.001));
+      assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15956, 0.001));
+      assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
+      assert(projectile.flightPath[1].time == 0.01);
+   }
 
+   // Gets flight time and makes sure it's correct.
    void getFlightTime()
    {
       // set up 
@@ -295,7 +370,39 @@ private:
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
       
    }
+   
+   // Get flight time when multiple things in flight path
+   void getFlightTimeWhenMultipleThingsInFlightPath()
+   {
+      // Setup
+      Projectile projectile;
+      PVT pvtOne = makePVT(0, 0, 827.0, 0.0);
+      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01);
+      projectile.flightPath.push_back(pvtOne);
+      projectile.flightPath.push_back(pvtTwo);
+      
+      // Exercise
+      double flightTime = projectile.getFlightTime();
+      
+      // Verify
+      assert(closeEnough(flightTime, 0.01, 0.001));
+      assert(projectile.flightPath.size() == 2);
+      assert(closeEnough(projectile.mass, 46.7, 0.001));
+      assert(closeEnough(projectile.radius, 0.077445, 0.001));
+      
+      
+      assert(closeEnough(projectile.flightPath[0].position.getMetersX(), 0, 0.001));
+      assert(closeEnough(projectile.flightPath[0].position.getMetersY(), 0, 0.001));
+      assert(closeEnough(projectile.flightPath[0].velocity.getSpeed(), 827.0, 0.001));
+      assert(projectile.flightPath[1].time == 0.01);
+      
+      assert(closeEnough(projectile.flightPath[1].position.getMetersX(), 4.1339, 0.001));
+      assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15956, 0.001));
+      assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
+      assert(projectile.flightPath[1].time == 0.01);
+   }
 
+   // Makes sure flight distance is correct.
    void getFlightDistnace()
    {
       // set up 
@@ -314,7 +421,39 @@ private:
       // verify
       assert(distance == 20);
    }
+   
+   // Get flight distance when multiple things in flight path
+   void getFlightDistanceWhenMultipleThingsInFlightPath()
+   {
+      // Setup
+      Projectile projectile;
+      PVT pvtOne = makePVT(0, 0, 827.0, 0.0);
+      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01);
+      projectile.flightPath.push_back(pvtOne);
+      projectile.flightPath.push_back(pvtTwo);
+      
+      // Exercise
+      double flightDistance = projectile.getFlightDistance();
+      
+      // Verify
+      assert(closeEnough(flightDistance, 4.1339, 0.001));
+      assert(projectile.flightPath.size() == 2);
+      assert(closeEnough(projectile.mass, 46.7, 0.001));
+      assert(closeEnough(projectile.radius, 0.077445, 0.001));
+      
+      
+      assert(closeEnough(projectile.flightPath[0].position.getMetersX(), 0, 0.001));
+      assert(closeEnough(projectile.flightPath[0].position.getMetersY(), 0, 0.001));
+      assert(closeEnough(projectile.flightPath[0].velocity.getSpeed(), 827.0, 0.001));
+      assert(projectile.flightPath[1].time == 0.01);
+      
+      assert(closeEnough(projectile.flightPath[1].position.getMetersX(), 4.1339, 0.001));
+      assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15956, 0.001));
+      assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
+      assert(projectile.flightPath[1].time == 0.01);
+   }
 
+   // Makes sure speed from projectile is correct
    void getSpeed()
    {
       // set up 
@@ -341,7 +480,39 @@ private:
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
    }
+   
+   // Test to make sure it is getting speed from the right part of flight path
+   void getSpeedWhenMultipleThingsInFlightPath()
+   {
+      // Setup
+      Projectile projectile;
+      PVT pvtOne = makePVT(0, 0, 827.0, 0.0);
+      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01);
+      projectile.flightPath.push_back(pvtOne);
+      projectile.flightPath.push_back(pvtTwo);
+      
+      // Exercise
+      double totalSpeed = projectile.getSpeed();
+      
+      // Verify
+      assert(closeEnough(totalSpeed, 826.476, 0.001));
+      assert(projectile.flightPath.size() == 2);
+      assert(closeEnough(projectile.mass, 46.7, 0.001));
+      assert(closeEnough(projectile.radius, 0.077445, 0.001));
+      
+      
+      assert(closeEnough(projectile.flightPath[0].position.getMetersX(), 0, 0.001));
+      assert(closeEnough(projectile.flightPath[0].position.getMetersY(), 0, 0.001));
+      assert(closeEnough(projectile.flightPath[0].velocity.getSpeed(), 827.0, 0.001));
+      assert(projectile.flightPath[1].time == 0.01);
+      
+      assert(closeEnough(projectile.flightPath[1].position.getMetersX(), 4.1339, 0.001));
+      assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15956, 0.001));
+      assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
+      assert(projectile.flightPath[1].time == 0.01);
+   }
 
+   // Makes sure mass is set correctly
    void setMass()
    {
       // set up
@@ -352,7 +523,20 @@ private:
       // verify
       assert(projectile.mass == 40);
    }
+   
+   // Test that mass becomes default if set below 0.
+   void setMassBelowZero()
+   {
+      // set up
+      Projectile projectile;
+      projectile.mass = 10;
+      // exercise
+      projectile.setMass(-10);
+      // verify
+      assert(projectile.mass == 46.7);
+   }
 
+   // Tests that radius is set correctly
    void setRadius()
    {
       // set up
@@ -361,11 +545,23 @@ private:
       // exercise
       projectile.setRadius(3);
       // verify
-      assert(projectile.mass == 3);
+      assert(projectile.radius == 3);
+   }
+   
+   // Check if radius is set out of range that it becomes default value.
+   void setRadiusBelowZero()
+   {
+      // set up
+      Projectile projectile;
+      projectile.radius = 1;
+      // exercise
+      projectile.setRadius(-5);
+      // verify
+      assert(projectile.radius == 0.077445);
    }
 
 
-
+   // Shortcut to make parts of flight path
    PVT makePVT(double x, double y, double totalVelocity, double time)
    {
       PVT newPVT;

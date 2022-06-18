@@ -14,9 +14,6 @@ class TestDirection
 public:
    void run()
    {
-      
-      
-      
       defaultConstructor();
       assignmentOperator();
       SetDegreesNormal();
