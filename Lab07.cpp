@@ -23,6 +23,7 @@
 #include "testDirection.h"
 #include "testPosition.h"
 #include "testProjectile.h"
+#include "physics.h"
 using namespace std;
 
 /*************************************************************************
@@ -82,8 +83,9 @@ public:
  **************************************/
 void callBack(const Interface* pUI, void* p)
 {
-   TestDirection test;
-   TestProjectile test2;
+   cout << "Air Density" << getAirDensity(6500) << endl;
+   
+   
    //test.run();
    // the first step is to cast the void pointer into a game object. This
    // is the first step of every single callback function in OpenGL. 

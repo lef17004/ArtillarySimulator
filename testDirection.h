@@ -23,6 +23,7 @@ public:
       setRadiansHigh();
       setRadiansLow();
       setDxDy();
+      setDxDyZero();
       setDown();
       setUp();
       setLeft();
@@ -66,6 +67,7 @@ private:
       
       // Verify
       assert(direction1.radians == M_PI);
+      // Teardown
    }
    
    // Tests setting degrees to 90
@@ -80,6 +82,7 @@ private:
       
       // Verify
       assert(direction.radians == M_PI / 2);
+      // Teardown
    }
    
    // Tests setting degrees to a number greater than 360
@@ -94,6 +97,7 @@ private:
       
       // Verify
       assert(direction.radians == M_PI);
+      // Teardown
    }
    
    // Tests setting degrees to a number below 0
@@ -108,6 +112,7 @@ private:
       
       // Verify
       assert(direction.radians == M_PI);
+      // Teardown
    }
    
    // Tests setting radians to pi
@@ -122,6 +127,7 @@ private:
       
       // Verify
       assert(direction.radians = M_PI);
+      // Teardown
    }
    
    // Tests setting radians to a value greater than 2pi.
@@ -136,6 +142,7 @@ private:
       
       // Verify
       assert(direction.radians = M_PI);
+      // Teardown
    }
    
    // Tests setting radians to a value lower than 0.
@@ -150,6 +157,7 @@ private:
       
       // Verify
       assert(direction.radians = M_PI);
+      // Teardown
    }
    
    // Tests setting angle with dx and dy
@@ -166,6 +174,24 @@ private:
       
       // Verify
       assert(closeEnough(direction.radians, 0.6435, 0.001));
+      // Teardown
+   }
+   
+   // Tests setting angle with dx and dy being 0
+   void setDxDyZero()
+   {
+      // Setup
+      double dx = 0;
+      double dy = 0;
+      Direction direction;
+      direction.radians = 0;
+      
+      // Exercise
+      direction.setDxDy(dx, dy);
+      
+      // Verify
+      assert(closeEnough(direction.radians, 0.0, 0.00001));
+      // Teardown
    }
    
    // Test setting angle down
@@ -180,6 +206,7 @@ private:
       
       // Verify
       assert(direction.radians == M_PI);
+      // Teardown
    }
    
    // Tests setting angle up
@@ -194,6 +221,7 @@ private:
       
       // Verify
       assert(direction.radians == 0);
+      // Teardown
    }
    
    // Tests setting angle to the left
@@ -208,6 +236,7 @@ private:
       
       // Verify
       assert(direction.radians == M_PI / 2);
+      // Teardown
    }
    
    // Tests setting angle to the right
@@ -222,6 +251,7 @@ private:
       
       // Verify
       assert(direction.radians == 3 * M_PI / 2);
+      // Teardown
    }
    
    // Tests reversing the direction of the angle
@@ -237,6 +267,7 @@ private:
       // Verify
       closeEnough(direction.radians, 0, 0.001);
       assert(direction.radians == 0);
+      // Teardown
    }
    
    // Makes sure angle reverses corectly when 0.
@@ -252,6 +283,7 @@ private:
       // Verify
       closeEnough(direction.radians, M_PI, 0.001);
       assert(direction.radians == 0);
+      // Teardown
    }
    
    // Tests getting radians
@@ -266,6 +298,7 @@ private:
       
       // Verify
       assert(radians == M_PI);
+      // Teardown
    }
    
    // Tests getting degrees
@@ -280,5 +313,6 @@ private:
       
       // Verify
       assert(closeEnough(degrees, 180.0, 0.001));
+      // Teardown
    }
 };

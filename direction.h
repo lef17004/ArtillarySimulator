@@ -6,12 +6,17 @@
 //
 
 #pragma once
+#include <cmath>
 class TestDirection;
 
 class Direction
 {
 public:
    Direction() {}
+   Direction(double degrees)
+   {
+      setDegrees(degrees);
+   }
    void operator = (Direction rhs) {}
    void setRadians(double radians) {}
    void setDegrees(double degrees) {}
@@ -27,4 +32,10 @@ public:
    friend class TestDirection;
 private:
    double radians;
+   
+   double normalize(double value)
+   {
+      double normalizedRadianValue = value - (2.0 * M_PI * floor(value / (2.0 * M_PI)));
+      return normalizedRadianValue;
+   }
 };

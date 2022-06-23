@@ -54,7 +54,7 @@ private:
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
 
-
+      // Teardown
    }
 
    // Make sure values reset to default values
@@ -70,7 +70,7 @@ private:
 
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
-
+      // Teardown
 
    }
 
@@ -83,22 +83,23 @@ private:
       double time = 1.0;
       Direction direction;
       direction.setRadians(0.5);
-      Velocity velocity(1, 5);
+      Velocity velocity;
+      velocity.setDxDy(1, 5);
       // excersie
       projectile.fire(position, time, direction, velocity);
       // verify
       assert(projectile.flightPath.size() == 1);
       assert(projectile.flightPath[0].position.getMetersX() == 0);
       assert(projectile.flightPath[0].position.getMetersY() == 0);
-      assert(projectile.flightPath[0].velocity.getDx() == 1);
-      assert(projectile.flightPath[0].velocity.getDy() == 5);
+      assert(projectile.flightPath[0].velocity.getDx(direction) == 1);
+      assert(projectile.flightPath[0].velocity.getDy(direction) == 5);
       assert(projectile.flightPath[0].time == 1);
 
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
 
       assert(projectile.flightPath.size() == 0);
-
+      // Teardown
    }
 
    // Projectile is advanced by one frame
@@ -132,7 +133,7 @@ private:
 
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
-
+      // Teardown
    }
    
    // Advance when Deque has 10 items on it. When looking at the demo, only 10 colored in pixels can be seen despite the array
@@ -185,7 +186,7 @@ private:
       assert(projectile.flightPath.size() == 10);
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
-      
+      // Teardown
    }
 
    // Returns false when not flying.
@@ -204,7 +205,7 @@ private:
 
       assert(projectile.flightPath.size() == 0);
 
-
+      // Teardown
    }
 
    // Return true when flying.
@@ -231,7 +232,7 @@ private:
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
 
       assert(projectile.flightPath.size() == 1);
-
+      // Teardown
    }
 
    // Gets correct altitude
@@ -256,6 +257,7 @@ private:
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
       assert(projectile.flightPath.size() == 1);
+      // Teardown
    }
    
    // Get alititude when multiple things in flight path
@@ -287,6 +289,7 @@ private:
       assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15956, 0.001));
       assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
       assert(projectile.flightPath[1].time == 0.01);
+      // Teardown
    }
 
    // Gets position of projectile
@@ -313,6 +316,7 @@ private:
 
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
+      // Teardown
    }
    
    // Get position when multiple things in flight path
@@ -345,6 +349,7 @@ private:
       assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15956, 0.001));
       assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
       assert(projectile.flightPath[1].time == 0.01);
+      // Teardown
    }
 
    // Gets flight time and makes sure it's correct.
@@ -368,7 +373,7 @@ private:
 
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
-      
+      // Teardown
    }
    
    // Get flight time when multiple things in flight path
@@ -400,6 +405,7 @@ private:
       assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15956, 0.001));
       assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
       assert(projectile.flightPath[1].time == 0.01);
+      // Teardown
    }
 
    // Makes sure flight distance is correct.
@@ -420,6 +426,7 @@ private:
       double distance = projectile.getFlightDistance();
       // verify
       assert(distance == 20);
+      // Teardown
    }
    
    // Get flight distance when multiple things in flight path
@@ -451,6 +458,7 @@ private:
       assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15956, 0.001));
       assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
       assert(projectile.flightPath[1].time == 0.01);
+      // Teardown
    }
 
    // Makes sure speed from projectile is correct
@@ -479,6 +487,7 @@ private:
 
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
+      // Teardown
    }
    
    // Test to make sure it is getting speed from the right part of flight path
@@ -510,6 +519,7 @@ private:
       assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15956, 0.001));
       assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
       assert(projectile.flightPath[1].time == 0.01);
+      // Teardown
    }
 
    // Makes sure mass is set correctly
@@ -522,6 +532,7 @@ private:
       projectile.setMass(40);
       // verify
       assert(projectile.mass == 40);
+      // Teardown
    }
    
    // Test that mass becomes default if set below 0.
@@ -534,6 +545,7 @@ private:
       projectile.setMass(-10);
       // verify
       assert(projectile.mass == 46.7);
+      // Teardown
    }
 
    // Tests that radius is set correctly
@@ -546,6 +558,7 @@ private:
       projectile.setRadius(3);
       // verify
       assert(projectile.radius == 3);
+      // Teardown
    }
    
    // Check if radius is set out of range that it becomes default value.
@@ -558,6 +571,7 @@ private:
       projectile.setRadius(-5);
       // verify
       assert(projectile.radius == 0.077445);
+      // Teardown
    }
 
 
