@@ -83,7 +83,8 @@ public:
  **************************************/
 void callBack(const Interface* pUI, void* p)
 {
-   cout << "Air Density" << getAirDensity(6500) << endl;
+   TestDirection test;
+   test.run();
    
    
    //test.run();

@@ -7,27 +7,40 @@
 
 #pragma once
 #include <cmath>
+#include "physics.h"
 class TestDirection;
 
 class Direction
 {
 public:
-   Direction() {}
+   Direction(): radians(0) {}
    Direction(double degrees)
    {
       setDegrees(degrees);
    }
-   void operator = (Direction rhs) {}
-   void setRadians(double radians) {}
-   void setDegrees(double degrees) {}
-   void setDxDy(double dx, double dy) {}
-   void setDown() {}
-   void setUp() {}
-   void setRight() {}
-   void setLeft() {}
-   void reverse() {}
-   double getRadians() {return 0;}
-   double getDegrees() {return 0;}
+   void operator = (Direction rhs)
+   {
+      radians = rhs.radians;
+   }
+   void setRadians(double radians) { this->radians = normalize(radians); }
+   void setDegrees(double degrees) { this->radians = normalize(convertToRadians(degrees)); }
+   void setDxDy(double dx, double dy) { radians = normalize(angleFromComponent(dx, dy)); }
+   void setDown() { radians = M_PI; }
+   void setUp() { radians = 0; }
+   void setRight() { radians = 3 * M_PI / 2; }
+   void setLeft() { radians = M_PI / 2; }
+   void reverse()
+   {
+      if (radians == 0)
+         radians = M_PI;
+      
+      if (radians == M_PI)
+         radians = 0;
+      
+      radians = normalize(-radians);
+   }
+   double getRadians() {return radians;}
+   double getDegrees() {return convertToDegrees(radians);}
    
    friend class TestDirection;
 private:

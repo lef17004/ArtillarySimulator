@@ -6,6 +6,7 @@
 //
 #pragma once
 #include <vector>
+#include <cmath>
 using namespace std;
 
 struct Pair
@@ -34,4 +35,5 @@ double getAirDensity(double alititude);
 double getDragCoefficient(double mach);
 double getSpeedOfSound(double altitude);
 double getGravity(double altitude);
-
+double convertToDegrees(double radians);
+double convertToRadians(double degrees);

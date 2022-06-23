@@ -217,7 +217,7 @@ private:
       direction.radians = 0;
       
       // Exercise
-      direction.setDown();
+      direction.setUp();
       
       // Verify
       assert(direction.radians == 0);
