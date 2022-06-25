@@ -25,13 +25,31 @@ class TestProjectile;
 class Projectile
 {
 public:
-   Projectile() {}
-   void reset() {}
+   Projectile() 
+   {
+      mass = 46.7;
+      radius = 0.077445;
+
+   }
+   void reset()
+   {
+      flightPath.clear();
+      mass = 46.7;
+      radius = 0.077445;
+   }
    void fire(Position pos, double time, Direction angle, Velocity vel)
    {
       PVT pvt;
+      pvt.position = pos;
+      pvt.velocity = vel;
+      pvt.time = time;
+
+      flightPath.push_back(pvt);
    }
-   void advance(double time) {}
+   void advance(double time) 
+   {
+
+   }
    void draw() {}
    bool flying() {return false;}
    double getAltitude() {return 0;}
