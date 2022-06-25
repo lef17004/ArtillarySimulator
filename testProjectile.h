@@ -97,7 +97,7 @@ private:
 
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
-
+      
      
       // Teardown
    }
@@ -117,17 +117,17 @@ private:
       firstProjectile.time = time;
       projectile.flightPath.push_back(firstProjectile);
       // exersice
-      projectile.advance(time);
+      projectile.advance(0.01);
       // verify
       assert(projectile.flightPath[0].position.getMetersX() == 0);
       assert(projectile.flightPath[0].position.getMetersY() == 0);
       assert(closeEnough(projectile.flightPath[0].velocity.getSpeed(), 827, 0.001));
-      assert(closeEnough(projectile.flightPath[0].time, 0, 0.001));
+      assert(closeEnough(projectile.flightPath[0].time, 0, 0));
 
       assert(closeEnough(projectile.flightPath[1].position.getMetersX(), 4.1339, 0.001));
       assert(closeEnough(projectile.flightPath[1].position.getMetersY(), 7.15964, 0.001));
       assert(closeEnough(projectile.flightPath[1].velocity.getSpeed(), 826.476, 0.001));
-      assert(closeEnough(projectile.flightPath[1].time, 0.01, 0.001));
+      assert(closeEnough(projectile.flightPath[1].time, 0.01, 0.01));
 
       assert(projectile.flightPath.size() == 2);
 
@@ -152,7 +152,7 @@ private:
       PVT pvtSeven = makePVT(28.8914, 50.0174, 823.349, 0.07, Direction(30.0238));
       PVT pvtEight = makePVT(33.01, 57.1437, 822.831, 0.08, Direction(30.0273));
       PVT pvtNine = makePVT(37.1265, 64.2653, 822.313, 0.09, Direction(30.0307));
-      PVT pvtTen = makePVT(41.2408, 71.3822, 821.795, 0.1, Direction(30.0341));
+      //PVT pvtTen = makePVT(41.2408, 71.3822, 821.795, 0.1, Direction(30.0341));
       
       projectile.flightPath.push_back(pvtZero);
       projectile.flightPath.push_back(pvtOne);
@@ -164,17 +164,17 @@ private:
       projectile.flightPath.push_back(pvtSeven);
       projectile.flightPath.push_back(pvtEight);
       projectile.flightPath.push_back(pvtNine);
-      projectile.flightPath.push_back(pvtTen);
+      //projectile.flightPath.push_back(pvtTen);
       
       // exersice
       projectile.advance(0.01);
       // verify
       
       //Make sure new PVT was added to end of flight path
-      assert(closeEnough(projectile.flightPath[9].position.getMetersX(), 45.3529, 0.001));
-      assert(closeEnough(projectile.flightPath[9].position.getMetersY(), 78.4944, 0.001));
+      assert(closeEnough(projectile.flightPath[9].position.getMetersX(), 41.2408, 0.001));
+      assert(closeEnough(projectile.flightPath[9].position.getMetersY(), 71.3822, 0.001));
       assert(closeEnough(projectile.flightPath[9].velocity.getSpeed(), 821.795, 0.001));
-      assert(projectile.flightPath[9].time == 0.11);
+      assert(closeEnough(projectile.flightPath[9].time, 0.1, 0.001));
       
       
       // Make sure the correct PVT is at the front

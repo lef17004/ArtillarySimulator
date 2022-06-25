@@ -52,6 +52,11 @@ public:
       dx += velocity.getDx();
       dy += velocity.getDy();
    }
+   
+   double getAngle()
+   {
+      return angleFromComponent(dx, dy);
+   }
    //void reverse();
 
 
