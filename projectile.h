@@ -101,10 +101,10 @@ public:
    Position getPosition() {return flightPath.back().position;}
    double getFlightTime() 
    {
-      flightPath.back().time;
+      return flightPath.back().time;
    }
-   double getFlightDistance() {return 0;}
-   double getSpeed() {return 0;}
+   double getFlightDistance() {return flightPath.back().position.getMetersX(); }
+   double getSpeed() {return flightPath.back().velocity.getSpeed(); }
    double getCurrentTime() {return 0;}
    void setMass(double mass) {}
    void setRadius(double radius) {}
