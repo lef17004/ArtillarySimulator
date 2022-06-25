@@ -363,5 +363,5 @@ double getGravity(double altitude)
    return getValueFromTable(gravityTable, altitude);
 }
 
-double convertToDegrees(double radians) { return (180.0 * radians) / M_PI; }
-double convertToRadians(double degrees) { return (degrees * 2.0 * M_PI) / 360.0; }
+double convertToDegrees(double radians) { return (180.0 * radians) / PI; }
+double convertToRadians(double degrees) { return (degrees * 2.0 * PI) / 360.0; }

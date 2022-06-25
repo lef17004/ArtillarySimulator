@@ -6,8 +6,9 @@
 //
 
 #pragma once
-#include <cmath>
+#include <math.h>
 #include "physics.h"
+#define M_PI 3.14159
 class TestDirection;
 
 class Direction
@@ -18,10 +19,10 @@ public:
    {
       setDegrees(degrees);
    }
-   Direction(Direction &rhs)
-   {
-      radians = rhs.radians;
-   }
+  // Direction(Direction &rhs)
+   //{
+    //  radians = rhs.radians;
+   //}
    void operator = (Direction &rhs)
    {
       radians = rhs.radians;
