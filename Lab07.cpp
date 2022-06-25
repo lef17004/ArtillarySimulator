@@ -85,8 +85,9 @@ public:
 void callBack(const Interface* pUI, void* p)
 {
    TestDirection test;
+   TestProjectile test2;
    test.run();
-   
+   test2.run();
    
    //test.run();
    // the first step is to cast the void pointer into a game object. This
