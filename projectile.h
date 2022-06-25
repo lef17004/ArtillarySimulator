@@ -25,18 +25,23 @@ class TestProjectile;
 class Projectile
 {
 public:
+
    Projectile() 
    {
       mass = 46.7;
       radius = 0.077445;
 
    }
+
+   // Resets to default values
    void reset()
    {
       flightPath.clear();
       mass = 46.7;
       radius = 0.077445;
    }
+
+   // Fire launches projectile
    void fire(Position pos, double time, Direction angle, Velocity vel)
    {
       PVT pvt;
@@ -46,6 +51,8 @@ public:
 
       flightPath.push_back(pvt);
    }
+
+   // Advance moves the projetile by the specified time
    void advance(double time) 
    {
       double area = calculateArea(radius);
@@ -73,7 +80,7 @@ public:
       PVT newPVT;
       Velocity newVelocity;
       Position newPosition;
-      //Direction newDirection;
+      
       
       newPosition.setMeters(newX, newY);
       newVelocity.setDxDy(newDx, newDy);
@@ -87,28 +94,54 @@ public:
          flightPath.pop_front();
       
    }
+
+   
    void draw() {}
+
+   // Flying cheks if there is a projectile in the air
    bool flying()
    {
       if (flightPath.size())
          return true;
       return false;
    }
+
+
    double getAltitude() 
    {
       return flightPath.back().position.getMetersY();
    }
    Position getPosition() {return flightPath.back().position;}
+
    double getFlightTime() 
    {
       return flightPath.back().time;
    }
+
    double getFlightDistance() {return flightPath.back().position.getMetersX(); }
+
    double getSpeed() {return flightPath.back().velocity.getSpeed(); }
+
    double getCurrentTime() {return 0;}
-   void setMass(double mass) {}
-   void setRadius(double radius) {}
+
+   void setMass(double mass) 
+   { 
+      if (mass >= 0)
+         this->mass = mass;
+      else
+         this->mass = 46.7;
+   }
+
+   void setRadius(double radius) 
+   {
+      if (radius >= 0)
+         this->radius = radius;
+      else
+         this->radius = 0.077445;
+   }
+
    friend class TestProjectile;
+
 private:
    double mass;
    double radius;

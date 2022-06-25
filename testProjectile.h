@@ -482,7 +482,7 @@ private:
       assert(projectile.flightPath[0].position.getMetersY() == 19);
       assert(closeEnough(projectile.flightPath[0].velocity.getSpeed(), 827, 0.001));
       assert(closeEnough(projectile.flightPath[0].time, 0, 0.001));
-      assert(speed == 827);
+      assert(closeEnough(speed, 827, 0.001));
       assert(projectile.flightPath.size() == 1);
 
       assert(closeEnough(projectile.mass, 46.7, 0.001));
