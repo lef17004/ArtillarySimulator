@@ -96,7 +96,8 @@ private:
       direction.setDegrees(540.0);
       
       // Verify
-      assert(direction.radians == M_PI);
+      cout << "Radians: " << direction.getRadians() << endl;
+      assert(closeEnough(direction.radians, M_PI, 0.0001));
       // Teardown
    }
    
