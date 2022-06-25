@@ -98,7 +98,7 @@ private:
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
 
-      assert(projectile.flightPath.size() == 2);
+     
       // Teardown
    }
 
