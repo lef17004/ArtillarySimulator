@@ -24,6 +24,7 @@
 #include "testPosition.h"
 #include "testProjectile.h"
 #include "physics.h"
+#include "status.h"
 using namespace std;
 
 /*************************************************************************

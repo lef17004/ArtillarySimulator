@@ -91,8 +91,8 @@ private:
       assert(projectile.flightPath.size() == 1);
       assert(projectile.flightPath[0].position.getMetersX() == 0);
       assert(projectile.flightPath[0].position.getMetersY() == 0);
-      assert(projectile.flightPath[0].velocity.getDx(direction) == 1);
-      assert(projectile.flightPath[0].velocity.getDy(direction) == 5);
+      assert(projectile.flightPath[0].velocity.getDx() == 1);
+      assert(projectile.flightPath[0].velocity.getDy() == 5);
       assert(projectile.flightPath[0].time == 1);
 
       assert(closeEnough(projectile.mass, 46.7, 0.001));
@@ -110,7 +110,7 @@ private:
       double time = 0;
       Position position(0, 0);
       Velocity velocity;
-      velocity.setSpeed(827.0);
+      velocity.setSpeed(827.0, Direction(30));
       PVT firstProjectile;
       firstProjectile.position = position;
       firstProjectile.velocity = velocity;
@@ -142,17 +142,17 @@ private:
    {
       // set up
       Projectile projectile;
-      PVT pvtZero = makePVT(0, 0, 827.0, 0.0);
-      PVT pvtOne  = makePVT(4.1339, 7.15964, 826.476, 0.01);
-      PVT pvtTwo = makePVT(8.26561, 14.3145, 825.953, 0.02);
-      PVT pvtThree = makePVT(12.3951, 21.4646, 825.431, 0.03);
-      PVT pvtFour = makePVT(16.5225, 28.6099, 824.91, 0.04);
-      PVT pvtFive = makePVT(20.6476, 35.7505, 824.389, 0.05);
-      PVT pvtSix = makePVT(24.7706, 42.8863, 823.869, 0.06);
-      PVT pvtSeven = makePVT(28.8914, 50.0174, 823.349, 0.07);
-      PVT pvtEight = makePVT(33.01, 57.1437, 822.831, 0.08);
-      PVT pvtNine = makePVT(37.1265, 64.2653, 822.313, 0.09);
-      PVT pvtTen = makePVT(41.2408, 71.3822, 821.795, 0.1);
+      PVT pvtZero = makePVT(0, 0, 827.0, 0.0, Direction(30));
+      PVT pvtOne  = makePVT(4.1339, 7.15964, 826.476, 0.01, Direction(30.0034));
+      PVT pvtTwo = makePVT(8.26561, 14.3145, 825.953, 0.02, Direction(30.0068));
+      PVT pvtThree = makePVT(12.3951, 21.4646, 825.431, 0.03, Direction(30.0102));
+      PVT pvtFour = makePVT(16.5225, 28.6099, 824.91, 0.04, Direction(30.0136));
+      PVT pvtFive = makePVT(20.6476, 35.7505, 824.389, 0.05, Direction(30.017));
+      PVT pvtSix = makePVT(24.7706, 42.8863, 823.869, 0.06, Direction(30.0204));
+      PVT pvtSeven = makePVT(28.8914, 50.0174, 823.349, 0.07, Direction(30.0238));
+      PVT pvtEight = makePVT(33.01, 57.1437, 822.831, 0.08, Direction(30.0273));
+      PVT pvtNine = makePVT(37.1265, 64.2653, 822.313, 0.09, Direction(30.0307));
+      PVT pvtTen = makePVT(41.2408, 71.3822, 821.795, 0.1, Direction(30.0341));
       
       projectile.flightPath.push_back(pvtZero);
       projectile.flightPath.push_back(pvtOne);
@@ -216,7 +216,7 @@ private:
       double time = 0;
       Position position(0, 0);
       Velocity velocity;
-      velocity.setSpeed(827.0);
+      velocity.setSpeed(827.0, Direction(30));
       PVT firstProjectile;
       firstProjectile.position = position;
       firstProjectile.velocity = velocity;
@@ -243,7 +243,7 @@ private:
       double time = 0;
       Position position(0, 42);
       Velocity velocity;
-      velocity.setSpeed(827.0);
+      velocity.setSpeed(827.0, Direction(30));
       PVT firstProjectile;
       firstProjectile.position = position;
       firstProjectile.velocity = velocity;
@@ -265,8 +265,8 @@ private:
    {
       // Setup
       Projectile projectile;
-      PVT pvtOne = makePVT(0, 0, 827.0, 0.0);
-      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01);
+      PVT pvtOne = makePVT(0, 0, 827.0, 0.0, Direction(30));
+      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01, Direction(30.0034));
       projectile.flightPath.push_back(pvtOne);
       projectile.flightPath.push_back(pvtTwo);
       
@@ -300,7 +300,7 @@ private:
       double time = 0;
       Position position(2, 9);
       Velocity velocity;
-      velocity.setSpeed(827.0);
+      velocity.setSpeed(827.0, Direction(30));
       PVT firstProjectile;
       firstProjectile.position = position;
       firstProjectile.velocity = velocity;
@@ -324,8 +324,8 @@ private:
    {
       // Setup
       Projectile projectile;
-      PVT pvtOne = makePVT(0, 0, 827.0, 0.0);
-      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01);
+      PVT pvtOne = makePVT(0, 0, 827.0, 0.0, Direction(30));
+      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01, Direction(30.0034));
       projectile.flightPath.push_back(pvtOne);
       projectile.flightPath.push_back(pvtTwo);
       
@@ -360,7 +360,7 @@ private:
       double time = 0;
       Position position(2, 9);
       Velocity velocity;
-      velocity.setSpeed(827.0);
+      velocity.setSpeed(827.0, Direction(30));
       PVT firstProjectile;
       firstProjectile.position = position;
       firstProjectile.velocity = velocity;
@@ -381,8 +381,8 @@ private:
    {
       // Setup
       Projectile projectile;
-      PVT pvtOne = makePVT(0, 0, 827.0, 0.0);
-      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01);
+      PVT pvtOne = makePVT(0, 0, 827.0, 0.0, Direction(30));
+      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01, Direction(30.0034));
       projectile.flightPath.push_back(pvtOne);
       projectile.flightPath.push_back(pvtTwo);
       
@@ -416,7 +416,7 @@ private:
       double time = 0;
       Position position(20, 13);
       Velocity velocity;
-      velocity.setSpeed(827.0);
+      velocity.setSpeed(827.0, Direction(30));
       PVT firstProjectile;
       firstProjectile.position = position;
       firstProjectile.velocity = velocity;
@@ -434,8 +434,8 @@ private:
    {
       // Setup
       Projectile projectile;
-      PVT pvtOne = makePVT(0, 0, 827.0, 0.0);
-      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01);
+      PVT pvtOne = makePVT(0, 0, 827.0, 0.0, Direction(30));
+      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01, Direction(30.0034));
       projectile.flightPath.push_back(pvtOne);
       projectile.flightPath.push_back(pvtTwo);
       
@@ -469,7 +469,7 @@ private:
       double time = 0;
       Position position(12, 19);
       Velocity velocity;
-      velocity.setSpeed(827.0);
+      velocity.setSpeed(827.0, Direction(30));
       PVT firstProjectile;
       firstProjectile.position = position;
       firstProjectile.velocity = velocity;
@@ -495,8 +495,8 @@ private:
    {
       // Setup
       Projectile projectile;
-      PVT pvtOne = makePVT(0, 0, 827.0, 0.0);
-      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01);
+      PVT pvtOne = makePVT(0, 0, 827.0, 0.0, Direction(30));
+      PVT pvtTwo = makePVT(4.1339, 7.15964, 826.476, 0.01, Direction(30));
       projectile.flightPath.push_back(pvtOne);
       projectile.flightPath.push_back(pvtTwo);
       
@@ -576,11 +576,11 @@ private:
 
 
    // Shortcut to make parts of flight path
-   PVT makePVT(double x, double y, double totalVelocity, double time)
+   PVT makePVT(double x, double y, double totalVelocity, double time, Direction angle)
    {
       PVT newPVT;
       newPVT.position = Position(x, y);
-      newPVT.velocity = Velocity(totalVelocity);
+      newPVT.velocity = Velocity(totalVelocity, angle);
       newPVT.time = time;
       return newPVT;
    }

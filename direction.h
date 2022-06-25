@@ -18,7 +18,11 @@ public:
    {
       setDegrees(degrees);
    }
-   void operator = (Direction rhs)
+   Direction(Direction &rhs)
+   {
+      radians = rhs.radians;
+   }
+   void operator = (Direction &rhs)
    {
       radians = rhs.radians;
    }
