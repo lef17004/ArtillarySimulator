@@ -478,8 +478,8 @@ private:
       // exersice
       double speed = projectile.getSpeed();
       // verify
-      assert(projectile.flightPath[0].position.getMetersX() == 0);
-      assert(projectile.flightPath[0].position.getMetersY() == 0);
+      assert(projectile.flightPath[0].position.getMetersX() == 12);
+      assert(projectile.flightPath[0].position.getMetersY() == 19);
       assert(closeEnough(projectile.flightPath[0].velocity.getSpeed(), 827, 0.001));
       assert(closeEnough(projectile.flightPath[0].time, 0, 0.001));
       assert(speed == 827);
