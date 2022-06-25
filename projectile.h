@@ -94,9 +94,15 @@ public:
          return true;
       return false;
    }
-   double getAltitude() {return 0;}
-   Position getPosition() {return flightPath[0].position;}
-   double getFlightTime() {return 0;}
+   double getAltitude() 
+   {
+      return flightPath.back().position.getMetersY();
+   }
+   Position getPosition() {return flightPath.back().position;}
+   double getFlightTime() 
+   {
+      flightPath.back().time;
+   }
    double getFlightDistance() {return 0;}
    double getSpeed() {return 0;}
    double getCurrentTime() {return 0;}

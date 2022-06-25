@@ -357,7 +357,7 @@ private:
    {
       // set up 
       Projectile projectile;
-      double time = 0;
+      double time = 5;
       Position position(2, 9);
       Velocity velocity;
       velocity.setSpeed(827.0, Direction(30));
@@ -369,7 +369,7 @@ private:
       // excercise
       double testTime = projectile.getFlightTime();
       // verify
-      assert(testTime == 0);
+      assert(testTime == 5);
 
       assert(closeEnough(projectile.mass, 46.7, 0.001));
       assert(closeEnough(projectile.radius, 0.077445, 0.001));
